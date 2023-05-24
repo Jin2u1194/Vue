@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>6장 실습 - 최성진</title>
+</head>
+<body>
+    <div id="app">
+        <h1>숫자 배열 조작과 구구단 출력</h1>
+        <ul>
+            <li v-for="(num,index) in number_List">
+                {{num}} 
+                <input type="button" value="변경" v-on:click="changObj1(index,num)">
+                <input type="button" value="삭제" v-on:click="deleteObj1(index)">
+            </li>
+        </ul>
+        <input type="button" value="추가" v-on:click="addNum">
+        <input type="button" value="소트" v-on:click="sort(number_List)">
+        <input type="button" value="구구단 보이기" v-on:click="showList">
+        
+        <ul v-for="num in number_List" v-if="show==true">
+            <li v-for="index in 9">
+                {{num}} x {{index}} = {{num*index}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                number_List:[2,3,4,5,6,7,8,9],
+                show:false,
+            },
+            methods:{
+                changObj1(index,num){//1증가
+                    this.number_List.splice(index,1,num+1);
+                },
+                deleteObj1(index){//삭제
+                    this.number_List.splice(index,1);
+                },
+                addNum(){
+                    this.number_List.push(1);
+                },
+                sort(list){
+                    list.sort(function(a,b){
+                        return (a < b ? -1 : 1);
+                    });
+                },
+                showList(){
+                    this.show=!this.show;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

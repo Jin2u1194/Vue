@@ -1,0 +1,86 @@
+<!--4.선택한거를 출력(부분 성공)-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>중간고사 - 최성진</title>
+		<link rel="stylesheet" href="style.css" >
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	
+	<body>
+		<h2>2023년 5월 음원 차트</h2>
+		<div id="app">
+            <table>
+				<thead>
+					<th v-for="title in header">{{title}}</th>
+				</thead>
+				<tbody>
+					<tr v-for="line in songs">
+						<td v-for="(date,index) in line" v-if="index == 'done'"><input type="checkbox" v-model="line.done"></td>
+						<td v-for="(date,index) in line" v-if="index != 'done'">{{date}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<input type="text" v-model="title" placeholder="곡명">
+			<input type="text" v-model="album" placeholder="앨범명">
+			<input type="text" v-model="Singer" placeholder="가수명">
+			<br><br>
+			<input type="button" value="추가" v-on:click="addSongs()">
+			<input type="button" value="순위순 정렬" v-on:click="idSort(songs)">
+			<input type="button" value="곡명순 정렬" v-on:click="titleSort(songs)">
+			<input type="button" value="가수 이름순 정렬" v-on:click="SingerSort(songs)">
+			<p v-for="data in songs" v-if="data.done">선택한 곡은 [{{data.Singer}}의{{data.title}}]입니다.</p>
+		</div>
+
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					title:'',album:'',Singer:'',selects:'',
+					header:['체크','순위','곡정보','앨범','가수'],
+					songs: [
+                        {done:false, id:1, title:'I AM', album:'Ive IVE',Singer:'IVE(아이브)'},
+                        {done:false, id:2, title:'손오공', album:'SEVENTEEN 10th Mini', Singer:'세븐틴(SEVENTEEN)'},
+                        {done:false, id:3, title:'꽃', album:'ME',Singer:'지수 (JISOO)'},
+                        {done:false, id:4, title:'UNFORGIVEN', album:'UNFORGIVEN',Singer:'LE SSERAFIM(르세라핌)'},
+					]
+				},methods:{
+					addSongs(){
+						if(this.title==''||this.album==''||this.Singer==''){
+							alert('곡명, 앨범명, 가수명 중 내용이 없는 칸이 있습니다.\n내용을 채우고 추가버튼을 눌러주세요. ')
+						}else{
+							this.songs.push({done:false, id:this.songs.length+1, title:this.title, album:this.album,Singer:this.Singer});
+							this.title='';
+							this.album='';
+							this.Singer='';
+						}
+					},idSort(songs){
+                    	songs.sort(function(a,b){
+
+							return (a.id < b.id ? -1 : 1);
+                    	});
+					},titleSort(songs){
+						songs.sort(function(a,b){
+							return (a.title < b.title ? -1 : 1);
+                    	});
+                	},SingerSort(songs){
+						songs.sort(function(a,b){
+							return (a.Singer < b.Singer ? -1 : 1);
+                    	});
+					}
+				},
+				watch:{
+					done:{
+						if(done){
+							selects+=done
+							console.log(selects)
+						}
+					}
+				}
+            })
+		</script>
+	</body>
+</html>

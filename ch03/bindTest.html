@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>3장 - 최성진</title>
+</head>
+<body>
+    
+    <div id='app'>
+        <h1>이미지 지정</h1>
+        <img src="img/face1.png">직접지정</img>
+        <br>
+        <img v-bind:src="fileName">v-bind로 지정</img>
+        <br>
+
+        <h1>링크 지정</h1>
+        <p>
+            <a href="https://computer.silla.ac.kr/" target="_blank"> 링크 직접지정</a>
+        </p>
+        <p>
+            <a :href="myUrl" target="_blank">v-bind로 지정</a>
+        </p>
+        
+        <H1>align</H1>
+        <p align="left">최성진</p>
+        <p align="center">최성진</p>
+        <p align="right">최성진</p>
+        <hr>
+        <p :align="L">최성진</p>
+        <p :align="C">최성진</p>
+        <p :align="R">최성진</p>
+
+        <h1>인라인 스타일 지정</h1>
+        <p style="color:yellow">글자색 직접 지정</p>
+        <p :style="{ color:myColor }">v-bind로 지정</p>
+
+        <p style="font-size: 200%;">글자 크기 직접 지정</p>
+        <p :style="{ fontSize:myFontSize }">v-bind로 지정</p>
+
+        <p style="background-color: blue;">배경색 직접지정</p>
+        <p :style="{ backgroundColor:myBColor }">v-bind로 지정</p>
+
+
+    </div>
+
+    <script>
+        new Vue({
+            el : '#app',//좌표
+            data: {//정보
+                fileName : "img/face1.png",
+                myUrl : "https://computer.silla.ac.kr/",
+                L: "left",
+                C:"center",
+                R:"right",
+                myColor:"#12fc35",
+                myFontSize:"125%",
+                myBColor: "#112F35"
+            }
+        })
+    </script>
+</body>
+</html>

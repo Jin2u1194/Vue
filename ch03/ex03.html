@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>3장 실습예제 - 최성진</title>
+</head>
+<style>
+    .blue-underline{
+        text-decoration: underline;
+        color: blue;
+    }
+    .strike-through{
+        background-color: lightblue;
+    }
+</style>
+<body>
+    <div id="app">
+        <h2>다양한 바인딩</h2>
+        <p>
+            <a :href="naver">네이버로 연결</a>
+        </p>
+        <p>
+            <img :src="img2"><br>face2.png</img>
+        </p>
+        <p :align="alignL">택스트를 왼쪽정렬</p>
+        <p :align="alignC">택스트를 오른쪽정렬</p>
+        <p :align="alignR">택스트를 가운데정렬</p>
+        <p :style="{ color:Red }">인라인스타일로 글자색을 빨간색으로</p>
+        <p :style="{ color:Red, fontSize:size }">
+            인라인스타일로 글자크기는 150%크게 글자색을 빨간색으로
+        </p>
+        <p :style="{ color:Red, fontSize:size, backgroundColor:BColor }">
+            인라인스타일로 글자크기는 150%크게 글자색을 빨간색으로 배경은 노란색으로
+        </p>
+        <p :class="blue">blue-underline class 지정</p>
+        <p :class=[blue,strike]>blue-underline, strike-through class 지정</p>
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                naver:"https://www.naver.com/",
+                img2:"img/face2.png",
+                alignL: "left",
+                alignC:"center",
+                alignR:"right",
+                Red:"red",
+                size:"150%",
+                BColor:"yellow",
+                blue:"blue-underline",
+                strike:"strike-through"
+            }
+        })
+    </script>
+</body>
+</html>

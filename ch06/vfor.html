@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>6장 반복문 - 최성진</title>
+    <style>
+        table{
+            width: 100%;
+            text-align: left;
+        }
+        table th{
+            padding: 12px;
+            border-bottom: 2px solid darkgray;
+        }
+        table td{
+            padding: 12px;
+            
+        }table tr:nth-of-type(even){
+            background-color: rgba(0, 0, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h3>배열 데이터를 리스트로 출력</h3>
+        <ul>
+            <li v-for="itme in myArray1">{{itme}}</li>
+        </ul>
+        
+        <hr>
+        <h3>배열 데이터를 리스트로 출력</h3>
+        <ul>
+            <li v-for="itme in objArray">{{itme.name}} : \{{itme.price}}</li>
+        </ul>
+        
+        <hr>
+        <h3>1부터 10까지 출력하기</h3>
+        <ul>
+            <li v-for="num in 9">2 x {{num}} = {{num*2}}</li>
+        </ul>
+        
+        <hr>
+        <h3>배열 데이터 번호를 붙여서 출력하기</h3>
+        <ul>
+            <li v-for="(item, index) in myArray1">{{index}}:{{item}} </li>
+        </ul>
+
+        <hr>
+        <h3>배열 데이터를 테이블로 표시하기</h3>
+        <h4>관심 받고 있는 언어 랭킹</h4>
+        <table>
+            <thead>
+                <th v-for="title in header">{{title}}</th>
+            </thead>
+            <tbody>
+                <tr v-for="line in ranking">
+                    <td v-for="date in line">{{date}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+        <h3>버튼으로 리스트에 내용(추가, 삭제, 변경) 하기</h3>
+        <ul>
+            <li v-for="itme in myArray2">{{itme}}</li>
+        </ul>
+        <input type="button" value="멘뒤에 추가" v-on:click="addLast">
+        <input type="button" value="네번째에 추가" v-on:click="addObj(3)">
+        <input type="button" value="첫번째를 컴퓨터 공학부로 변경" v-on:click="chang(0)">
+        <input type="button" value="두번째를 삭제" v-on:click="deleteObj(1)">
+
+        <hr>
+        <h3>버튼으로 리스트 데이터 정렬하기</h3>
+        <ul>
+            <li v-for="itme in myArray3">{{itme}}</li>
+        </ul>
+        <input type="button" value="정렬" v-on:click="sort(myArray3)">
+
+        <hr>
+        <h3>배열을 수 중에서 짝수만 출력하기</h3>
+        <ul>
+            <li v-for="num in myNum" v-if="num%2==0">{{num}}</li>
+        </ul>
+
+        <hr>
+        <h3>버튼을 누르면 짝수만 출력하기</h3>
+        <ul>
+            <li v-for="num in myNum">{{num}}</li>
+        </ul>
+        <input type="button" value="짝수만 표시하기" v-on:click="evenDate()">
+        
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                myArray1:['돈가스','김밥','라면'],
+                objArray:[
+                    {name : '돈가스',price : 6000},
+                    {name : '김 밥',price : 2000},
+                    {name : '라 면',price : 4500},
+                ],
+                header:['프로그램언어',2018,2013,2008,2003,1998],
+                ranking:[
+                    ['JAVA',1,2,1,1,16],
+                    ['C',2,1,2,2,1],
+                    ['C++',3,4,3,3,2],
+                    ['Python', 4,7,6,11,23],
+                    ['JavaScript',7,10,8,7,20]
+                ],
+                myArray2:['첫번째','두번째','세번째','네번째','다섯번째'],
+                myArray3:['one','two','three','four','five'],
+                myNum:[1,2,3,4,5,6,7,8,9,10],
+            },
+            methods:{
+                addLast(){
+                    this.myArray2.push("멘뒤에 추가");
+                },
+                addObj(index){
+                    this.myArray2.splice(index,0,"최성진");
+                },
+                chang(index){
+                    this.myArray2.splice(index,1,'컴퓨터 공학부');
+                },
+                deleteObj(index){
+                    this.myArray2.splice(index,1);
+                },
+                sort(list){
+                    list.sort(function(a,b){
+                        return (a < b ? -1 : 1);
+                    });
+                },
+                evenDate(){
+                    this.myNum=this.myNum.filter(function(value){
+                        return value%2==0;
+                    });
+                },
+            }
+        })
+    </script>
+</body>
+</html>

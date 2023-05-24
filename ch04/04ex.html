@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>04ex - 최성진</title>
+</head>
+<body>
+    <div id="app">
+        <h1>입력폼 활용</h1>
+        <p>이름 : <input v-model.lazy="name" type="text"></p>
+
+        <p>좋아하는 색: </p>
+        <label>
+            <input v-model="colorRadio" type="radio" value="Red">빨강
+        </label><br>
+        <label>
+            <input v-model="colorRadio" type="radio" value="Green">녹색
+        </label><br>
+        <label>
+            <input v-model="colorRadio" type="radio" value="Blue">파랑색
+        </label><br>
+        <label>
+            <input v-model="colorRadio" type="radio" value="yellow">노란색
+        </label><br>
+        <label >
+            <input v-model="colorRadio" type="radio" value="silver">회색
+        </label><br>
+
+        <p :style="{color:colorRadio}">내이름은 {{name}}이고 좋아하는 색은 {{colorRadio}}입니다</p>
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                name:'',
+                colorRadio:'',
+            }
+        })
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title> 8장computed - 최성진</title>
+</head>
+<body>
+    <div id="app">
+        <h3>금액을 입력하면 소비세가 포함된 금액을 계산</h3>
+        <input type="number" v-model.number.lazy="price1">원
+        <p>소비세를 포함한 금액 : {{taxInclude1}} 원</p>
+        <hr><br>
+
+        <h3>단가와 개수를 입력하면 세금포함 금액을 계산하는 예제</h3>
+        <input type="number" v-model.number.lazy="price2">원 
+        X 
+        <input type="number" v-model.number.lazy="num2">개
+        <p>합계 : {{sum}} 원</p>
+        <p>소비세를 포함한 금액 : {{taxInclude2}} 원</p>
+        <br><hr>
+
+        <h3>문장을 입력하면 남은 글자수를 표시하는 예제(공백 미포함)</h3>
+        <p>감상문은 140자 이내로 작성하시오.</p>
+        <textarea cols="30" rows="10" v-model.trim="myText"></textarea>
+        <p :style="{color:textColor}">남은 글자수 : {{remaining}}자</p>
+        
+        <hr><br>
+        <h3>문자를 입력하면 그문자를 포함한 항목만 포시한는 예제</h3>
+        <input type="text" v-model="findword">
+        <ul>
+            <li v-for="item in findItems">{{item}}</li>
+        </ul>
+
+        <hr><br>
+        <h3>입력문자를 감시하여 금지문자가 입력되면 알럿메세지 띄우기</h3>
+        <p>금지문자 : {{forbiddenText}}</p>
+        <textarea v-model="inputText" cols="30" rows="10"></textarea>
+
+        <hr><br>
+        <h3>남은 시간(초)를 감시하고, 0초가 되면 메세지 띄우기</h3>
+        <p>남은 시간 : {{sec}}</p>
+        <input type="button" value="Start" v-on:click="startTime">
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                price1:100,
+                price2:0,
+                num2:0,
+                myText:"",
+                findword:'',
+                items:['백두산','설악산','백양산','한라산','지리산','뫼산'],
+                inputText:"",
+                forbiddenText:"바보",
+                sec:5,
+                timeObj:null,
+            },
+            
+            methods:{//호출 이벤트관련
+                startTime(){
+                    this.sec=5;
+                    this.timeObj=setInterval(()=>{this.sec--},1000);
+                }
+            },
+            computed:{
+                taxInclude1(){
+                    return this.price1*1.08;
+                },
+                sum(){
+                    return this.price2*this.num2;
+                },
+                taxInclude2(){
+                    return this.sum*1.08;
+                },
+                remaining(){
+                    return 140-this.myText.length
+                },
+                textColor(){
+                    color="green"
+                    if(this.remaining<=80){
+                        color="orange"
+                    }
+                    if(this.remaining<=5){
+                        color="red"
+                    }
+                    return color;
+                },
+                findItems(){
+                    if(this.findword){
+                        return this.items.filter(function(value){
+                            return (value.indexOf(this.findword)>-1);
+                        },this)
+                    }
+                    else{
+                        return this.items;
+                    }
+                    
+                },
+            },
+            watch:{
+                //입력한 문자를 감시
+                inputText(){
+                    let pos=this.inputText.indexOf(this.forbiddenText);
+                    if(pos>0){
+                        alert(this.forbiddenText+"는 입력할수 없습니다.");
+                        this.inputText=this.inputText.substr(0,pos);
+                    }
+                },
+                sec(){
+                    if(this.sec==0){
+                        alert("마감시간입니다.");
+                        clearInterval(this.timeObj);
+                    }
+                },
+            },
+        })
+    </script>
+</body>
+</html>

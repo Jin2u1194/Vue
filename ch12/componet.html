@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css" >
+    <title>12장 - 최성진</title>
+</head>
+<body>
+    <div id="app">
+        <h2>컴포넌트를 만들어서 표시</h2>
+        <my-component1></my-component1>
+
+        <hr>
+        <h2>버튼을 눌러 카운팅하는 컴포넌트</h2>
+        <my-component2></my-component2>
+        <my-component2></my-component2>
+
+        <hr>
+        <h2>컴포넌트에 값전달</h2>
+        <my-component3 my-name="최성진"></my-component3>
+
+        <hr>
+        <h2>배열에서 컴포넌트 만들어 표시 1</h2>
+        <my-component4 v-for="(item,index) in myArray" v-bind:my-name="item"></my-component4>
+        
+        <hr>
+        <h2>배열에서 컴포넌트 만들어 표시 2</h2>
+        <h3>과일 TOP5</h3>
+        <top-fruit v-for="(item2,index) in fruit" v-bind:fruit-name="item2" :num="index+1" ></top-fruit>
+    </div>
+    <script>
+        let MyComponent1={
+            template:'<p class="my-comp">CSJ</p>'
+        }
+        let MyComponent2={
+            template:'<p class="my-comp">카운터<button v-on:click="addOne">증가</button> {{count}}</p>',
+            data:function(){
+                return{
+                    count:0
+                }
+            },methods:{//호출 이벤트관련
+                addOne(){
+                    this.count++;
+                }
+            },
+        }
+        let MyComponent3={
+            template:'<p class="my-comp">나는 {{myName}}입니다.</p>',
+            props:{
+                myName:String,
+            },
+            created:function(){
+                if(this.myName==null ||this.myName==''){
+                    this.myName='이름없음';
+                }
+            }
+        }
+        let MyComponent4={
+            template:'<p class="my-comp">나는 {{myName}}입니다.</p>',
+            props:{
+                myName:String,
+            },
+            created:function(){
+                if(this.myName==null ||this.myName==''){
+                    this.myName='이름없음';
+                }
+            }
+        }
+        let TopFruit={
+            template:'<ul>{{num}}순위의 과일은 {{fruitName}}입니다 </ul>',
+            props:{
+                fruitName:String,
+                num:Number
+            },
+            created:function(){
+                if(this.num==null ||this.num==''){
+                    this.num='null';
+                }
+                if(this.fruitName==null ||this.fruitName==''){
+                    this.fruitName='null';
+                }
+            }
+        }
+        new Vue({
+            el:'#app',
+            data:{
+                myArray:['a','b','c'],
+                fruit:['사과','배','수박','포도','참외']
+            },
+            methods:{//호출 이벤트관련
+                
+            },
+            computed:{//변화 산출,계산된 무언가를 표시
+
+            },
+            watch:{//감지 변할때 처리
+
+            },
+            components:{
+                'my-component1':MyComponent1,
+                'my-component2':MyComponent2,
+                'my-component3':MyComponent3,
+                'my-component4':MyComponent4,
+                'top-fruit':TopFruit
+            },
+        })
+    </script>
+    <style>.my-comp{
+        width:300px;
+        background-color: aqua;
+        border: solid;
+        border-color: orange;
+        border-radius: 5px;
+        padding: 10px;
+    }
+        </style>
+</body>
+</html>

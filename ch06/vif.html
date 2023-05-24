@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>6장 조건에 따른 표시 - 최성진</title>
+</head>
+<body>
+    <div id="app">
+        <h3>true일때 만 표시하는 예제</h3>
+        <label>
+            <input type="checkbox" v-model="myVisible1">표시
+        </label>
+        <p v-if="myVisible1">채크박스가 On</p>
+        <hr>
+        <h3>true와 false를 on/off로 표시하는 예제</h3>
+        <label>
+            <input type="checkbox" v-model="myVisible2">표시
+        </label>
+        <p v-if="myVisible2">채크박스가 On</p>
+        <p v-else>채크박스가 Off</p>
+        <hr>
+
+        <h3>클릭하면 버튼을 삭제하는 예제</h3>
+        <button v-if="isShow" @click="but">click</button>
+
+        <h3></h3>
+        <ul>
+            <li v-for="name in "></li>
+        </ul>
+
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                myVisible1:false,
+                myVisible2:false,
+                isShow:true,
+            },
+            methods:{
+                but:function(){
+                    this.isShow=false;
+                },
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>4장 유저입력 'v-model' - 최성진</title>
+</head>
+<body>
+    <div id="app">
+        <h2>입력한 문자열 입력</h2>
+        <input v-model="myName" placeholder="이름을 입력해주세요.">
+        <br>
+        <p>나는 {{myName}} 입니다</p>
+        <hr>
+        <h2>입력한 문장과 문자수를 표시</h2>
+        <textarea v-model="myText"></textarea><br>
+        <p>입력한 문장 : {{myText}}</p>
+        <p>문자수 : {{myText.length}}개 입니다</p>
+        <hr>
+        <h2>checkbox ? on:off</h2>
+        <label>
+            <input type="checkbox" v-model="myCheck">체크박스의 상태 : {{myCheck}}
+        </label>
+        <hr>
+        <h2>여러 항목 선택</h2>
+        <label>
+            <input type="checkbox" value="v-Red" v-model="myChecks">Red
+        </label><br>
+        <label>
+            <input type="checkbox" value="v-Green" v-model="myChecks">Green
+        </label><br>
+        <label>
+            <input type="checkbox" value="v-Blue" v-model="myChecks">Blue
+        </label><br>
+        <p>선택한 색상은 {{myChecks}} 입니다.</p>
+        <br><hr>
+        <h2>동의에 체크하면 버튼 활성화</h2>
+        <label>
+            <input type="checkbox" v-model="myAgree">동의 합니다.
+            <button :disabled="myAgree==false">전송</button>
+        </label>
+        <br><hr>
+        <h2>라디오 버튼으로 색상 선택</h2>
+        <label >
+            <input type="radio" value="v-Red" v-model="picked">Red<br></label>
+        <label >
+            <input type="radio" value="v-Green" v-model="picked">Green<br>
+        </label>
+        <label >
+            <input type="radio" value="v-Blue" v-model="picked">Blue<br>
+        </label>
+        <p>{{picked}} 선택됨</p>
+        <br><hr>
+        <h2>라디오 버튼으로 이미지 선택</h2>
+        <label >
+            <input type="radio" value="../ch03/img/face1.png" v-model="imgRadio">1번
+        </label>
+        <label >
+            <input type="radio" value="../ch03/img/face2.png" v-model="imgRadio">2번
+        </label><br>
+        <img :src="imgRadio">
+        <p>{{imgRadio}} 선택</p>
+
+        <br><hr>
+        <h2>문자열이 선택한 색상으로 변하는 예제</h2>
+        <select v-model="myColor">
+            <option disabled value="">색을 선택해 주세요!</option>
+            <option>Red</option>
+            <option>Blue</option>
+            <option>Green</option>
+            <option>Black</option>
+            <option>White</option>
+        </select>
+        <p :style="{color:myColor}"> 선택한 색상은 {{myColor}}입니다.</p>
+
+        <br><hr>
+        <h2>다 쓴후 입력예제</h2>
+        <input v-model.lazy="myText2">
+        <p>입력후 표시 {{myText2}}</p>
+        <br><hr>
+
+        <h2>입력을 자동으로 수식으로 변경하는 예제</h2>
+        <input v-model.number="myNumber" type="number">
+        <p>100을 더해서 표시 : {{100+myNumber}}</p>
+
+        <hr>
+        <h2>앞뒤공백 제거</h2>
+        <input v-model.trim="blank">
+        <p>앞뒤 공백제거 : {{blank}}</p>
+
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                myName:'',
+                myText:'',
+                myCheck:false,
+                myChecks:[],
+                myAgree:false,
+                picked:'v-Red',
+                imgRadio:"../ch03/img/face2.png",
+                myColor:'',
+                myText2:'',
+                myNumber:0,
+                blank:"",
+            }
+        })
+    </script>
+</body>
+</html>
