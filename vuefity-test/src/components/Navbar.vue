@@ -14,6 +14,14 @@
     </v-toolbar>
 
     <v-navigation-drawer v-model="drawer" absolute bottom temporary>
+      <v-layout column align-center>
+        <v-flex class="mt-4">
+          <v-avatar size="100">
+            <img src="/img/AA.jpg" />
+          </v-avatar>
+          <p class="mt-5">CHOI SEONG JIN</p>
+        </v-flex>
+      </v-layout>
       <v-list nav dense>
         <v-list-item-group v-model="group">
           <v-list-item
